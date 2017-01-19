@@ -29,7 +29,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>JAXRS</finalName>
+		<finalName>jaxrs</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -40,14 +40,22 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			<!-- <plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.1</version>
 				<executions>
 					<execution>
 						<id>verify-deploy</id>
-						<!--Process and deploy the package if necessary into an environment 
-							where integration tests can be run -->
+						Process and deploy the package if necessary into an environment 
+							where integration tests can be run
 						<phase>pre-integration-test</phase>
 						<goals>
 							<goal>redeploy</goal>
@@ -59,7 +67,7 @@
 					<username>admin</username>
 					<password>admin</password>
 				</configuration>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
