@@ -1,0 +1,17 @@
+1)
+POST http://localhost:9090/jaxrs/customers
+{
+ "state":"MA",
+ "country":"USA",
+ "firstName":"Bill",  
+ "lastName":"Burke",
+ "street":"256 Clarendon Street",
+ "zip":"02115",
+ "city":"Boston"
+}
+
+2)
+GET http://localhost:9090/jaxrs/customers/1
+
+3)
+DELETE http://localhost:9090/jaxrs/customers/1
