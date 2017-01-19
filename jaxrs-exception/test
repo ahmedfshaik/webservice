@@ -1,0 +1,18 @@
+CREATE TABLE CUSTOMER(ID INT NOT NULL,FIRST_NAME VARCHAR(100),
+LAST_NAME VARCHAR(100),STREET VARCHAR(50),CITY VARCHAR(50),
+STATE VARCHAR(50),ZIP INT,COUNTRY VARCHAR(50));
+
+POST http://localhost:9090/jaxrs-exception/customers
+
+<customer>
+ <first-name>Bill</first-name>
+ <last-name>Burke</last-name>
+ <street>256 Clarendon Street</street>
+ <city>Boston</city>
+ <state>MA</state>
+ <zip>02115</zip>
+ <country>USA</country>
+</customer>
+
+
+GET http://localhost:9090/jaxrs-exception/customers/1
