@@ -1,16 +1,18 @@
 package edu.home.rest.exception;
 
-public class NotFoundException extends RuntimeException {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class NotFoundException
+        extends RuntimeException {
 
-	public NotFoundException() {
-		super();
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	public NotFoundException(String s) {
-		super(s);
-	}
+    public NotFoundException() {
+        super();
+    }
+
+    public NotFoundException(String s) {
+        super(s);
+    }
 }

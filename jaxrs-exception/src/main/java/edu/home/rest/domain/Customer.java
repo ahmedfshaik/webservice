@@ -3,102 +3,91 @@ package edu.home.rest.domain;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-//CREATE TABLE CUSTOMER(ID NUMBER(10)PRIMARY KEY, FIRSTNAME VARCHAR2(100), LASTNAME VARCHAR2(100), STREET VARCHAR2(100), CITY VARCHAR2(100), STATE VARCHAR2(100), ZIP VARCHAR2(100), COUNTRY VARCHAR2(100));
+
+// CREATE TABLE CUSTOMER(ID NUMBER(10)PRIMARY KEY, FIRSTNAME VARCHAR2(100), LASTNAME VARCHAR2(100),
+// STREET VARCHAR2(100), CITY VARCHAR2(100), STATE VARCHAR2(100), ZIP VARCHAR2(100), COUNTRY
+// VARCHAR2(100));
 @XmlRootElement(name = "customer")
-public class Customer{
-   private int id;
-   private String firstName;
-   private String lastName;
-   private String street;
-   private String city;
-   private String state;
-   private String zip;
-   private String country;
+public class Customer {
 
-   @XmlAttribute
-   public int getId(){
-      return id;
-   }
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String street;
+    private String city;
+    private String state;
+    private String zip;
+    private String country;
 
-   public void setId(int id)
-   {
-      this.id = id;
-   }
+    @XmlAttribute
+    public int getId() {
+        return id;
+    }
 
-   @XmlElement(name = "first-name")
-   public String getFirstName()
-   {
-      return firstName;
-   }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-   public void setFirstName(String firstName)
-   {
-      this.firstName = firstName;
-   }
+    @XmlElement(name = "first-name")
+    public String getFirstName() {
+        return firstName;
+    }
 
-   @XmlElement(name = "last-name")
-   public String getLastName()
-   {
-      return lastName;
-   }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-   public void setLastName(String lastName)
-   {
-      this.lastName = lastName;
-   }
+    @XmlElement(name = "last-name")
+    public String getLastName() {
+        return lastName;
+    }
 
-   @XmlElement
-   public String getStreet()
-   {
-      return street;
-   }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-   public void setStreet(String street)
-   {
-      this.street = street;
-   }
+    @XmlElement
+    public String getStreet() {
+        return street;
+    }
 
-   @XmlElement
-   public String getCity()
-   {
-      return city;
-   }
+    public void setStreet(String street) {
+        this.street = street;
+    }
 
-   public void setCity(String city)
-   {
-      this.city = city;
-   }
+    @XmlElement
+    public String getCity() {
+        return city;
+    }
 
-   @XmlElement
-   public String getState()
-   {
-      return state;
-   }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-   public void setState(String state)
-   {
-      this.state = state;
-   }
+    @XmlElement
+    public String getState() {
+        return state;
+    }
 
-   @XmlElement
-   public String getZip()
-   {
-      return zip;
-   }
+    public void setState(String state) {
+        this.state = state;
+    }
 
-   public void setZip(String zip)
-   {
-      this.zip = zip;
-   }
+    @XmlElement
+    public String getZip() {
+        return zip;
+    }
 
-   @XmlElement
-   public String getCountry()
-   {
-      return country;
-   }
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
-   public void setCountry(String country)
-   {
-      this.country = country;
-   }
+    @XmlElement
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 }

@@ -20,99 +20,112 @@ import edu.home.rest.domain.Customer;
 import edu.home.rest.exception.NotFoundException;
 
 @Path("/customers")
-public class CustomerResource{
-   public CustomerResource(){}
+public class CustomerResource {
 
-   @POST
-   @Consumes("application/xml")
-   public Response createCustomer(Customer c){
-	  //Declare resources
-	  Connection con = null;
-	  PreparedStatement pstmt = null;
-	  Statement stmt = null;
-	  ResultSet rs = null;
-	  Customer cust = null;
-	  Response resp = null;
+    private static final String PASSWORD = "";
+    private static final String USER = "SA";
+    private static final String JDBC_URL = "jdbc:hsqldb:hsql://localhost/testdb";
+    private static final String JDBC_DRIVER = "org.hsqldb.jdbc.JDBCDriver";
 
-	  try{
-			//Load & Register Jdbc Driver 
-			Class.forName("com.mysql.jdbc.Driver");
+    public CustomerResource() {
+    }
 
-			//Establish connection
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MY_DATABASE", "root", "root");
+    @POST
+    @Consumes("application/xml")
+    public Response createCustomer(Customer c) {
+        // Declare resources
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        Customer cust = null;
+        Response resp = null;
 
-			stmt = con.createStatement();
-			rs = stmt.executeQuery("SELECT MAX(ID) FROM CUSTOMER");
-			int id;
-			if(rs.next()){
-				id = rs.getInt(1);
-				id++; // Primary key increment
-			}else{
-				id = 1;
-			}
+        try {
+            // Load & Register Jdbc Driver
+            Class.forName(JDBC_DRIVER);
 
-			//Prepare query
-			String query = "INSERT INTO CUSTOMER(ID, FIRSTNAME, LASTNAME) VALUES(?,?,?)";
+            // Establish connection
+            con = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
 
-			//Create JDBC Statement
-			pstmt = con.prepareStatement(query);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT MAX(ID) FROM CUSTOMER");
+            int id;
+            if (rs.next()) {
+                id = rs.getInt(1);
+                id++; // Primary key increment
+            }
+            else {
+                id = 1;
+            }
 
-			//set data
-			pstmt.setInt(1,id);
-			pstmt.setString(2,c.getFirstName());
-			pstmt.setString(3, c.getLastName());
-			
-			int count = pstmt.executeUpdate();
+            // Prepare query
+            String query = "INSERT INTO CUSTOMER(ID, FIRST_NAME, LAST_NAME) VALUES(?,?,?)";
 
-			if(count == 1){ //process result
-				resp = Response.created(URI.create("/customers/"+id)).build();
-			}else{
-				//exception code
-			}
-	  }catch(Exception e){
-		  e.printStackTrace();
-	  }
-      return resp;
-   }
-   
-   @GET
-   @Path("{id}")
-   @Produces("application/xml")
-   public Customer getCustomer(@PathParam("id") int id){
-	  //Declare resources
-	  Connection con = null;
-	  Statement stmt = null;
-	  ResultSet rs = null;
-	  Customer cust = null;
+            // Create JDBC Statement
+            pstmt = con.prepareStatement(query);
 
-	  try{
-			//Load & Register Jdbc Driver 
-			Class.forName("com.mysql.jdbc.Driver");
+            // set data
+            pstmt.setInt(1, id);
+            pstmt.setString(2, c.getFirstName());
+            pstmt.setString(3, c.getLastName());
 
-			//Establish connection
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MY_DATABASE", "root", "root");
-			
-			//Prepare query
-			String query = "SELECT * FROM CUSTOMER WHERE ID="+id;
+            int count = pstmt.executeUpdate();
 
-			//Create JDBC Statement
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
-			//System.out.println("******"+rs.next());
-			if(!rs.next()){ //empty rs
-				//throw new WebApplicationException(Response.Status.NOT_FOUND);
-				throw new NotFoundException("Could not found customer:"+id);
-			}else{
-				cust = new Customer();
-				cust.setId(rs.getInt(1));
-				cust.setFirstName(rs.getString(2));
-				cust.setLastName(rs.getString(3));
-			}
-	  }catch(SQLException e){
-		  e.printStackTrace();
-	  }catch(ClassNotFoundException c){
-		  c.printStackTrace();
-	  }
-      return cust;
-   }
+            if (count == 1) { // process result
+                resp = Response.created(URI.create("/customers/" + id)).build();
+            }
+            else {
+                // exception code
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces("application/xml")
+    public Customer getCustomer(@PathParam("id") int id) {
+        // Declare resources
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        Customer cust = null;
+
+        try {
+            // Load & Register Jdbc Driver
+            Class.forName(JDBC_DRIVER);
+
+            // Establish connection
+            con = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
+
+            // Prepare query
+            String query = "SELECT * FROM CUSTOMER WHERE ID=" + id;
+
+            // Create JDBC Statement
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            // System.out.println("******"+rs.next());
+            if (!rs.next()) { // empty rs
+                // throw new WebApplicationException(Response.Status.NOT_FOUND);
+                throw new NotFoundException("Could not found customer:" + id);
+            }
+            else {
+                cust = new Customer();
+                cust.setId(rs.getInt(1));
+                cust.setFirstName(rs.getString(2));
+                cust.setLastName(rs.getString(3));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException c) {
+            c.printStackTrace();
+        }
+        return cust;
+    }
 }
